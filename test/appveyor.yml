@@ -1,0 +1,33 @@
+
+version: '{build}'
+
+image: Visual Studio 201´9
+
+environment:
+  QTDIR: C:\Qt\5.14.0\msvc2017_64
+  #QtMsBuild: C:\Qt\Tools\QtMsBuild
+  QTMSBUILD_URL: https://cdn.discordapp.com/attachments/579270662313738242/679217804091588608/QtMsBuild.7z
+
+cache:
+#- QtMsBuild.7z -> appveyor.yml
+
+install:
+
+- ps: | # misc global settings
+    $env:PATH += $env:QTDIR
+
+platform: x64
+
+configuration: Release
+
+build:
+  parallel: true
+  project: test.sln
+  verbosity: normal
+
+before_build:
+#- ps: | # initialize mirror arrays and fetch precompiled build dependencies
+    #if (!(test-path QtMsBuild.7z)) { irm $env:QTMSBUILD_URL -outfile QtMsBuild.7z }
+    #7z x QtMsBuild.7z -aos -o"C:\Qt\Tools\QtMsBuild" | out-null
+
+test: off
